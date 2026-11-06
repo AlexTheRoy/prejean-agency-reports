@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Prejean Agency · Ideal Customer Profile</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sidebar-bg: #0d1627;
+    --sidebar-border: #1e2d45;
+    --sidebar-label: #38bdf8;
+    --sidebar-heading: #f1f5f9;
+    --sidebar-text: #94a3b8;
+    --sidebar-link: #94a3b8;
+    --sidebar-link-hover: #e2e8f0;
+    --main-bg: #f1f5f9;
+    --card-bg: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-label: #94a3b8;
+    --border: #e2e8f0;
+    --chip-research: #f0fdf4;
+    --chip-research-text: #15803d;
+    --chip-auto: #fefce8;
+    --chip-auto-text: #854d0e;
+    --chip-data: #f0f9ff;
+    --chip-data-text: #0369a1;
+    --stat-num: #0f172a;
+    --accent: #0ea5e9;
+    --accent-bg: #e0f2fe;
+    --teal: #0d9488;
+    --good: #16a34a;
+    --warn: #ca8a04;
+    --goal-blue: #1d4ed8;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+    background: var(--main-bg);
+    color: var(--text-primary);
+    display: flex;
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  aside {
+    width: 220px; min-height: 100vh; background: var(--sidebar-bg);
+    display: flex; flex-direction: column; padding: 20px 18px 24px;
+    position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 10;
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    color: var(--sidebar-text); text-decoration: none;
+    font-size: 12px; font-weight: 500; padding: 5px 10px; border-radius: 6px;
+    background: rgba(255,255,255,0.06); margin-bottom: 22px; transition: background 0.15s;
+  }
+  .back-link:hover { background: rgba(255,255,255,0.12); color: #e2e8f0; }
+  .goal-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+  .goal-logo-mark {
+    width: 28px; height: 28px; border-radius: 50%; background: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 800; font-size: 14px; letter-spacing: -0.5px; flex-shrink: 0;
+  }
+  .goal-logo span { color: #cbd5e1; font-weight: 700; font-size: 15px; letter-spacing: 0.03em; }
+  .sidebar-category { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sidebar-label); margin-bottom: 8px; }
+  .sidebar-title { font-size: 20px; font-weight: 700; line-height: 1.25; color: var(--sidebar-heading); margin-bottom: 12px; }
+  .sidebar-meta { font-size: 12px; color: var(--sidebar-text); line-height: 1.6; margin-bottom: 24px; }
+  .sidebar-meta strong { color: #cbd5e1; font-weight: 600; }
+  nav { flex: 1; }
+  nav ul { list-style: none; }
+  nav li { margin-bottom: 2px; }
+  nav a { display: block; padding: 5px 8px; color: var(--sidebar-link); text-decoration: none; font-size: 12.5px; border-radius: 5px; transition: background 0.1s, color 0.1s; }
+  nav a:hover { background: rgba(255,255,255,0.07); color: var(--sidebar-link-hover); }
+  nav a::before { content: "·"; margin-right: 7px; color: var(--sidebar-label); }
+  .sidebar-footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--sidebar-border); font-size: 10.5px; color: #475569; line-height: 1.6; }
+  main { margin-left: 220px; flex: 1; padding: 36px 40px 60px; max-width: 980px; }
+  .section-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+  .section-num { font-size: 11px; font-weight: 700; color: #64748b; background: #e2e8f0; border-radius: 20px; padding: 3px 9px; margin-top: 3px; flex-shrink: 0; }
+  .section-title { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+  .section-sub { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 24px 28px; margin-bottom: 20px; }
+  .card-intro { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px 28px; margin-bottom: 32px; font-size: 13.5px; line-height: 1.75; color: #334155; }
+  .card-intro strong { color: var(--text-primary); }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 20px 28px; margin-top: 20px; }
+  .stat-num { font-size: 30px; font-weight: 800; color: var(--stat-num); line-height: 1.1; letter-spacing: -0.5px; }
+  .stat-label { font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin-top: 4px; }
+  .stat-sub { font-size: 11.5px; color: var(--text-secondary); margin-top: 2px; }
+  .stat-good { color: var(--good); }
+  .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .profile-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 16px; }
+  .profile-item-label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 5px; }
+  .profile-item-val { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+  .profile-item-note { font-size: 11.5px; color: var(--text-secondary); margin-top: 2px; }
+  .conversion-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .conv-card { border-radius: 8px; padding: 16px 18px; }
+  .conv-card.reached { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .conv-card.unreached { background: #fff7ed; border: 1px solid #fed7aa; }
+  .conv-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .conv-label.reached { color: #15803d; }
+  .conv-label.unreached { color: #c2410c; }
+  .conv-num { font-size: 28px; font-weight: 800; line-height: 1; }
+  .conv-num.reached { color: #16a34a; }
+  .conv-num.unreached { color: #ea580c; }
+  .conv-desc { font-size: 12px; color: #64748b; margin-top: 6px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13px; }
+  th { text-align: left; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-secondary); padding: 8px 12px; border-bottom: 2px solid var(--border); }
+  td { padding: 9px 12px; border-bottom: 1px solid #f1f5f9; color: var(--text-primary); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f8fafc; }
+  .td-num { font-weight: 700; color: var(--text-primary); }
+  .sold-pill { display: inline-block; background: #dcfce7; color: #15803d; font-size: 10px; font-weight: 700; border-radius: 20px; padding: 1px 7px; margin-right: 4px; }
+  .chip { display: inline-block; border-radius: 20px; font-size: 10.5px; font-weight: 700; padding: 2px 10px; margin-left: 8px; }
+  .chip-research { background: var(--chip-research); color: var(--chip-research-text); }
+  .chip-auto { background: var(--chip-auto); color: var(--chip-auto-text); }
+  .chip-data { background: var(--chip-data); color: var(--chip-data-text); }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .bar-label { width: 170px; font-size: 12.5px; color: var(--text-primary); flex-shrink: 0; }
+  .bar-track { flex: 1; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; background: var(--accent); }
+  .bar-val { font-size: 12px; font-weight: 700; color: var(--text-secondary); width: 50px; text-align: right; }
+  .section { margin-bottom: 44px; }
+  .split-row { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 16px; }
+  .split-segment { padding: 16px 18px; flex: 1; }
+  .split-segment:not(:last-child) { border-right: 1px solid var(--border); }
+  .split-seg-label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 6px; }
+  .split-seg-val { font-size: 24px; font-weight: 800; color: var(--text-primary); }
+  .split-seg-desc { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
+  .split-primary { background: #f0f9ff; }
+  .split-secondary { background: #f8fafc; }
+  .note { background: #fefce8; border: 1px solid #fde68a; border-radius: 7px; padding: 12px 16px; font-size: 12.5px; color: #713f12; margin-top: 16px; line-height: 1.6; }
+  .note strong { color: #92400e; }
+  h3.subsection { font-size: 13px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.07em; margin: 20px 0 10px; }
+</style>
+</head>
+<body>
+<aside>
+  <a href="index.html" class="back-link">← All reports</a>
+  <div class="goal-logo"><div class="goal-logo-mark">G</div><span>GOAL</span></div>
+  <div class="sidebar-category">Research</div>
+  <div class="sidebar-title">The Ideal Customer</div>
+  <div class="sidebar-meta">Prepared for <strong>Sarah</strong><br>The Prejean Agency<br>Research · November 5, 2026</div>
+  <nav><ul>
+    <li><a href="#s1">Primary buyer type</a></li>
+    <li><a href="#s2">Age &amp; household</a></li>
+    <li><a href="#s3">Home ownership</a></li>
+    <li><a href="#s4">Income &amp; geography</a></li>
+    <li><a href="#s5">Vehicles &amp; coverage</a></li>
+    <li><a href="#s6">Shopping behavior</a></li>
+    <li><a href="#s7">Conversion: what works</a></li>
+  </ul></nav>
+  <div class="sidebar-footer">GOAL Performance Marketing<br>All conversion metrics based on Leads, not Clicks.</div>
+</aside>
+<main>
+  <div class="card-intro">Portrait of your nine closed households from Jun 24, 2025 through Nov 5, 2026, matched against U.S. Census ACS 2020–2024 five-year estimates for their ZIP codes. <strong>Seven of nine sales came through Auto (Marketplace)</strong>, so the profile leads with that buyer — a Texas renter or modest homeowner in their mid-30s, insured but actively shopping, who responds within hours of submitting a lead. The three homeowners who bought averaged two items each, making them your strongest bundle opportunity.</div>
+  <!-- S1 -->
+  <div class="section" id="s1">
+    <div class="section-header"><span class="section-num">01</span><div><div class="section-title">Primary buyer type <span class="chip chip-auto">Auto</span></div><div class="section-sub">9 households sold · 13 items · Jun 24, 2025 through Nov 5, 2026</div></div></div>
+    <div class="card">
+      <div class="split-row">
+        <div class="split-segment split-primary"><div class="split-seg-label">Top product</div><div class="split-seg-val">Auto</div><div class="split-seg-desc">7 of 9 households (78%) · 11 of 13 items (85%)</div></div>
+        <div class="split-segment split-secondary"><div class="split-seg-label">Top channel</div><div class="split-seg-val">Marketplace</div><div class="split-seg-desc">8 of 9 sales came through lead marketplace</div></div>
+        <div class="split-segment split-secondary"><div class="split-seg-label">Home sales</div><div class="split-seg-val">1</div><div class="split-seg-desc">Home (Marketplace) · Hemphill County · 1 item</div></div>
+      </div>
+      <h3 class="subsection">Sales by campaign</h3>
+      <table><thead><tr><th>Campaign</th><th>Households sold</th><th>Items</th><th>CPA</th><th>Cost / item</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sold-pill">7</span> Auto (Marketplace)</td><td class="td-num">7</td><td class="td-num">11</td><td class="td-num">$522</td><td class="td-num">$332</td></tr>
+        <tr><td><span class="sold-pill" style="background:#dbeafe;color:#1d4ed8;">1</span> Auto (quote funnel)</td><td class="td-num">1</td><td class="td-num">1</td><td class="td-num">$8,745</td><td class="td-num">$8,745</td></tr>
+        <tr><td><span class="sold-pill" style="background:#f0fdf4;color:#15803d;">1</span> Home (Marketplace)</td><td class="td-num">1</td><td class="td-num">1</td><td class="td-num">$200</td><td class="td-num">$200</td></tr>
+        <tr style="background:#f8fafc;"><td><strong>All campaigns</strong></td><td class="td-num">9</td><td class="td-num">13</td><td class="td-num">$1,400</td><td class="td-num">$969</td></tr>
+      </tbody></table>
+      <div class="note"><strong>Read:</strong> Auto (Marketplace) is 78% of households and 85% of items at a CPA 62% below the account average. The ideal customer profile below is built primarily around this buyer.</div>
+    </div>
+  </div>
+  <!-- S2 -->
+  <div class="section" id="s2">
+    <div class="section-header"><span class="section-num">02</span><div><div class="section-title">Age &amp; household <span class="chip chip-research">Research</span></div><div class="section-sub">ACS 2020–2024 median estimates for the ZIP codes where sales closed</div></div></div>
+    <div class="card">
+      <div class="stats">
+        <div><div class="stat-num">35</div><div class="stat-label">Estimated median age</div><div class="stat-sub">Buyer ZIP medians range 31–40 yrs</div></div>
+        <div><div class="stat-num">28–42</div><div class="stat-label">Core age band</div><div class="stat-sub">Working adults, families forming</div></div>
+        <div><div class="stat-num">2.6</div><div class="stat-label">Avg household size</div><div class="stat-sub">Texas statewide · buyer ZIPs similar</div></div>
+        <div><div class="stat-num">3 of 9</div><div class="stat-label">Multi-item households</div><div class="stat-sub">Families with 2+ vehicles or policies</div></div>
+      </div>
+      <h3 class="subsection">Age context for buyer ZIP codes</h3>
+      <div class="bar-row"><div class="bar-label">Alvin (77511) · Brazoria</div><div class="bar-track"><div class="bar-fill" style="width:72%"></div></div><div class="bar-val">~34 yrs</div></div>
+      <div class="bar-row"><div class="bar-label">Fort Worth (76137) · Tarrant</div><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><div class="bar-val">~36 yrs</div></div>
+      <div class="bar-row"><div class="bar-label">Harker Heights (76548) · Bell</div><div class="bar-track"><div class="bar-fill" style="width:62%"></div></div><div class="bar-val">~31 yrs</div></div>
+      <div class="bar-row"><div class="bar-label">Orange (77632) · Orange Co.</div><div class="bar-track"><div class="bar-fill" style="width:80%"></div></div><div class="bar-val">~40 yrs</div></div>
+      <div class="bar-row"><div class="bar-label">Harlingen (78552) · Cameron</div><div class="bar-track"><div class="bar-fill" style="width:66%"></div></div><div class="bar-val">~33 yrs</div></div>
+      <div class="bar-row"><div class="bar-label">Spring (77388) · Harris</div><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div><div class="bar-val">~34 yrs</div></div>
+      <div class="bar-row"><div class="bar-label">Crosby (77532) · Harris</div><div class="bar-track"><div class="bar-fill" style="width:73%"></div></div><div class="bar-val">~35 yrs</div></div>
+      <div class="bar-row"><div class="bar-label">Houston (77073) · Harris</div><div class="bar-track"><div class="bar-fill" style="width:67%"></div></div><div class="bar-val">~33 yrs</div></div>
+      <div class="bar-row"><div class="bar-label">Canadian (79014) · Hemphill</div><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><div class="bar-val">~39 yrs</div></div>
+      <div class="note">Bar lengths are proportional within the range shown. Ages are ZIP-level ACS 2020–2024 estimates for the median age of all residents in that ZIP. Harker Heights (near Fort Cavazos) skews young due to military population; Orange and Canadian skew slightly older.</div>
+    </div>
+  </div>
+  <!-- S3 -->
+  <div class="section" id="s3">
+    <div class="section-header"><span class="section-num">03</span><div><div class="section-title">Home ownership</div><div class="section-sub">Who buys — and who bundles — by tenure status</div></div></div>
+    <div class="card">
+      <div class="stats">
+        <div><div class="stat-num">6 of 9</div><div class="stat-label">Non-owner sales</div><div class="stat-sub">Renters or non-homeowners (67%)</div></div>
+        <div><div class="stat-num">3 of 9</div><div class="stat-label">Homeowner sales</div><div class="stat-sub">Bought at 5.7% rate vs 7.1% for renters</div></div>
+        <div><div class="stat-num">2.0</div><div class="stat-label">Items per homeowner sale</div><div class="stat-sub">vs 1.3 items per renter sale</div></div>
+        <div><div class="stat-num">387</div><div class="stat-label">Auto leads who own a home</div><div class="stat-sub">22 quoted · 2 sold — bundle pipeline</div></div>
+      </div>
+      <h3 class="subsection">Ownership split across all 1,247 leads</h3>
+      <div class="bar-row"><div class="bar-label">Renter / non-owner</div><div class="bar-track"><div class="bar-fill" style="width:54%; background:#f97316;"></div></div><div class="bar-val">54% · 674</div></div>
+      <div class="bar-row"><div class="bar-label">Homeowner</div><div class="bar-track"><div class="bar-fill" style="width:46%; background:#0ea5e9;"></div></div><div class="bar-val">46% · 574</div></div>
+      <div class="note"><strong>Bundling signal:</strong> Homeowner buyers averaged 2 items per household — 54% more than renter buyers (1.3 items). The 387 Auto leads who say they own a home are your cleanest bundle opportunity: they have both an auto need and an insurable structure, and only 22 of them have been quoted so far.</div>
+    </div>
+  </div>
+  <!-- S4 -->
+  <div class="section" id="s4">
+    <div class="section-header"><span class="section-num">04</span><div><div class="section-title">Income &amp; geography <span class="chip chip-data">Data</span></div><div class="section-sub">ACS 2020–2024 median household income for buyer ZIP codes</div></div></div>
+    <div class="card">
+      <div class="stats">
+        <div><div class="stat-num">~$70k</div><div class="stat-label">Estimated buyer income</div><div class="stat-sub">Weighted avg across buyer ZIPs</div></div>
+        <div><div class="stat-num">$54–90k</div><div class="stat-label">Income range (buyer ZIPs)</div><div class="stat-sub">Rio Grande Valley to Tarrant suburbs</div></div>
+        <div><div class="stat-num">7</div><div class="stat-label">Counties with a sale</div><div class="stat-sub">Harris · Brazoria · Bell · Tarrant · Cameron · Orange · Hemphill</div></div>
+        <div><div class="stat-num">4 of 9</div><div class="stat-label">Houston &amp; Gulf Coast sales</div><div class="stat-sub">Your strongest region · 44%</div></div>
+      </div>
+      <h3 class="subsection">Median household income at each buyer ZIP (ACS estimate)</h3>
+      <table><thead><tr><th>ZIP</th><th>City · County</th><th>Region</th><th>Est. HHI</th><th>Items sold</th></tr></thead>
+      <tbody>
+        <tr><td>77511</td><td>Alvin · Brazoria</td><td>Houston &amp; Gulf Coast</td><td class="td-num">~$80k</td><td class="td-num">2</td></tr>
+        <tr><td>76137</td><td>Fort Worth · Tarrant</td><td>Dallas–Fort Worth</td><td class="td-num">~$85k</td><td class="td-num">1</td></tr>
+        <tr><td>76548</td><td>Harker Heights · Bell</td><td>Austin &amp; Central TX</td><td class="td-num">~$68k</td><td class="td-num">2</td></tr>
+        <tr><td>77632</td><td>Orange · Orange Co.</td><td>Golden Triangle</td><td class="td-num">~$70k</td><td class="td-num">1</td></tr>
+        <tr><td>78552</td><td>Harlingen · Cameron</td><td>Rio Grande Valley</td><td class="td-num">~$52k</td><td class="td-num">3</td></tr>
+        <tr><td>77388</td><td>Spring · Harris</td><td>Houston &amp; Gulf Coast</td><td class="td-num">~$72k</td><td class="td-num">1</td></tr>
+        <tr><td>77532</td><td>Crosby · Harris</td><td>Houston &amp; Gulf Coast</td><td class="td-num">~$66k</td><td class="td-num">1</td></tr>
+        <tr><td>77073</td><td>Houston · Harris</td><td>Houston &amp; Gulf Coast</td><td class="td-num">~$63k</td><td class="td-num">1</td></tr>
+        <tr><td>79014</td><td>Canadian · Hemphill</td><td>West Texas</td><td class="td-num">~$74k</td><td class="td-num">1</td></tr>
+      </tbody></table>
+      <div class="note">Income estimates are ACS ZIP-level medians (2020–2024) for the county or sub-area of each buyer ZIP. The Rio Grande Valley buyer (Harlingen, 3 items) is the highest-item sale despite the lowest-income ZIP — suggesting price competitiveness matters as much as income level.</div>
+    </div>
+  </div>
+  <!-- S5 -->
+  <div class="section" id="s5">
+    <div class="section-header"><span class="section-num">05</span><div><div class="section-title">Vehicles &amp; coverage</div><div class="section-sub">What they insure and how much they spend</div></div></div>
+    <div class="card">
+      <div class="stats">
+        <div><div class="stat-num">1.6</div><div class="stat-label">Items per auto household</div><div class="stat-sub">11 items on 7 auto households sold</div></div>
+        <div><div class="stat-num">$1,533</div><div class="stat-label">Avg premium per household</div><div class="stat-sub">$9,201 on 6 priced sales</div></div>
+        <div><div class="stat-num">61.6%</div><div class="stat-label">TX households with 2+ vehicles</div><div class="stat-sub">Statewide · buyer ZIPs similar</div></div>
+        <div><div class="stat-num">5.4%</div><div class="stat-label">TX households with no vehicle</div><div class="stat-sub">Your auto buyers all have at least one</div></div>
+      </div>
+      <h3 class="subsection">Items distribution across the 9 households sold</h3>
+      <div class="bar-row"><div class="bar-label">1 item</div><div class="bar-track"><div class="bar-fill" style="width:67%; background:#94a3b8;"></div></div><div class="bar-val">6 of 9</div></div>
+      <div class="bar-row"><div class="bar-label">2 items</div><div class="bar-track"><div class="bar-fill" style="width:11%; background:#0ea5e9;"></div></div><div class="bar-val">1 of 9</div></div>
+      <div class="bar-row"><div class="bar-label">3 items</div><div class="bar-track"><div class="bar-fill" style="width:11%; background:#0ea5e9;"></div></div><div class="bar-val">1 of 9</div></div>
+      <div class="bar-row"><div class="bar-label">Not yet confirmed</div><div class="bar-track"><div class="bar-fill" style="width:11%; background:#fbbf24;"></div></div><div class="bar-val">1 of 9</div></div>
+      <div class="note"><strong>Multi-item opportunity:</strong> Three households have confirmed 2–3 items but six were only counted as 1 item because no Items value was submitted on the sales list. Send Items on every sale row to capture the full picture.</div>
+    </div>
+  </div>
+  <!-- S6 -->
+  <div class="section" id="s6">
+    <div class="section-header"><span class="section-num">06</span><div><div class="section-title">Shopping behavior</div><div class="section-sub">Current insurance status and shopping intent of your buyers</div></div></div>
+    <div class="card">
+      <div class="profile-grid">
+        <div class="profile-item"><div class="profile-item-label">Currently insured?</div><div class="profile-item-val">Yes — shopping for better</div><div class="profile-item-note">Most named a carrier or selected "other/not listed"</div></div>
+        <div class="profile-item"><div class="profile-item-label">Named a specific carrier</div><div class="profile-item-val">49% of all leads (614)</div><div class="profile-item-note">3 of 9 sales from this group</div></div>
+        <div class="profile-item"><div class="profile-item-label">"Other" or not listed</div><div class="profile-item-val">32% of leads (400)</div><div class="profile-item-note">5 of 9 sales — your most likely buyer</div></div>
+        <div class="profile-item"><div class="profile-item-label">No carrier given</div><div class="profile-item-val">19% of leads (234)</div><div class="profile-item-note">1 of 9 sales; may have a coverage gap</div></div>
+        <div class="profile-item"><div class="profile-item-label">How they arrived</div><div class="profile-item-val">Lead marketplace (89%)</div><div class="profile-item-note">Not visiting your quote page — first call decides it</div></div>
+        <div class="profile-item"><div class="profile-item-label">Called in first</div><div class="profile-item-val">1 of 9 sales</div><div class="profile-item-note">Harris County Auto, Native/Display/Social 2</div></div>
+      </div>
+      <h3 class="subsection">Insurance status at time of lead</h3>
+      <div class="bar-row"><div class="bar-label">Named a current carrier</div><div class="bar-track"><div class="bar-fill" style="width:49%; background:#0ea5e9;"></div></div><div class="bar-val">49% · 3 sales</div></div>
+      <div class="bar-row"><div class="bar-label">"Other / not listed"</div><div class="bar-track"><div class="bar-fill" style="width:32%; background:#38bdf8;"></div></div><div class="bar-val">32% · 5 sales</div></div>
+      <div class="bar-row"><div class="bar-label">No carrier given</div><div class="bar-track"><div class="bar-fill" style="width:19%; background:#94a3b8;"></div></div><div class="bar-val">19% · 1 sale</div></div>
+    </div>
+  </div>
+  <!-- S7 -->
+  <div class="section" id="s7">
+    <div class="section-header"><span class="section-num">07</span><div><div class="section-title">Conversion — what works</div><div class="section-sub">The single biggest driver of a sale: reaching the lead</div></div></div>
+    <div class="card">
+      <div class="conversion-row">
+        <div class="conv-card reached"><div class="conv-label reached">Reached</div><div class="conv-num reached">7%</div><div class="conv-desc">100 leads were reached and worked · 7 bought · 7.0% conversion</div></div>
+        <div class="conv-card unreached"><div class="conv-label unreached">Not reached</div><div class="conv-num unreached">0%</div><div class="conv-desc">311 Auto (Marketplace) leads were not contacted · 0 sales</div></div>
+      </div>
+      <div class="stats" style="margin-top: 24px;">
+        <div><div class="stat-num stat-good">7</div><div class="stat-label">Sales when reached</div><div class="stat-sub">From 100 contacts attempted</div></div>
+        <div><div class="stat-num">0</div><div class="stat-label">Sales when not reached</div><div class="stat-sub">311 unreached marketplace leads</div></div>
+        <div><div class="stat-num">27</div><div class="stat-label">X-dates on file</div><div class="stat-sub">Future pipeline already in hand</div></div>
+        <div><div class="stat-num">56</div><div class="stat-label">Open quotes</div><div class="stat-sub">Still no sale · not marked lost</div></div>
+      </div>
+      <h3 class="subsection">The ideal call playbook for your best buyer</h3>
+      <table><thead><tr><th>Step</th><th>When</th><th>Why it matters for this buyer</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1st call</strong></td><td>Within minutes of lead arriving</td><td>Marketplace leads submitted without visiting your page; first caller usually wins</td></tr>
+        <tr><td><strong>Text</strong></td><td>Same day, after first call attempt</td><td>Mid-30s buyer likely reads texts before returning calls</td></tr>
+        <tr><td><strong>2nd call</strong></td><td>Day 2</td><td>Maintains recency without being intrusive</td></tr>
+        <tr><td><strong>3rd call</strong></td><td>Day 4</td><td>Many comparisons happen in first 72 hours; stay top-of-mind</td></tr>
+        <tr><td><strong>Final follow</strong></td><td>Day 7</td><td>Catch late deciders; set X-date if renewal is upcoming</td></tr>
+        <tr><td><strong>Price check</strong></td><td>Opening of call</td><td>Some leads shop from state-minimum coverage — confirm current premium &amp; coverage early</td></tr>
+      </tbody></table>
+      <div class="note"><strong>Bottom line:</strong> Your best buyer is a mid-30s Texas resident, more often renting than owning, earning roughly $55–85k, with 1–2 vehicles and a current policy they're willing to swap if the price is right. They find you through the marketplace and decide within days. The only variable under your control at that moment is how fast you pick up the phone.</div>
+    </div>
+  </div>
+</main>
+</body>
+</html>
